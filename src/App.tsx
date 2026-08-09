@@ -13,6 +13,13 @@ function App() {
 
   const monsters = getMonsters(scenario, appData);
 
+  const scenarioSpecificMonsters = monsters.filter(
+    (monster) => monster.scenarios.length === 1
+  );
+  const otherMonsters = monsters.filter(
+    (monster) => monster.scenarios.length > 1
+  );
+
   return (
     <div className="page">
       <div className="investigators">
@@ -28,7 +35,15 @@ function App() {
       </div>
       <div className="scenario-name">{scenario}</div>
       <div className="monsters">
-        {monsters.map((monster) => (
+        {otherMonsters.map((monster) => (
+          <div key={monster.name} className="monster">
+            <span>{monster.name}</span>
+            <span>x {monster.count}</span>
+          </div>
+        ))}
+      </div>
+      <div className="monsters">
+        {scenarioSpecificMonsters.map((monster) => (
           <div key={monster.name} className="monster">
             <span>{monster.name}</span>
             <span>x {monster.count}</span>
