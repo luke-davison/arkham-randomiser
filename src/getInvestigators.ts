@@ -66,18 +66,17 @@ export const getInvestigators = (appData: AppData): Investigator[] => {
     if (investigator.warder === false) return sum;
     return sum + 1;
   }, 0);
+  console.log(...chosen.map((x) => x.name + " " + x.tier));
+  console.log("fighters", fighters, "warders", warders);
 
   if (playerCount === 4) {
-    const fightersPlusWarders = fighters + warders;
-    if (
-      warders <= 2 ||
-      fighters <= 3 ||
-      fightersPlusWarders <= 6 ||
-      chosen.every((investigator) => investigator.tier > 1)
-    ) {
+    if (warders <= 3 || fighters <= 2) {
+      console.log("trying again");
+      console.log();
       return getInvestigators(appData);
     }
   }
 
+  console.log();
   return chosen;
 };
